@@ -67,17 +67,55 @@ s 1ae6ab8 step 3
 保存退出，重新输入新的commit纪录再保存退出，这3条既可以合并成一条记录。如果之前已经退到远程分支仓库，可以git push -f进行覆盖操作
 
 ### Question3
-如何优雅合并主干，遇到冲突如何处理。（重点问题）
+如何优雅合并主干，遇到冲突如何处理。
+
+ 合主干，假设之前在feature/something上开发
+```bash
+git checkout master
+git pull orgin master
+git merge --no-ff feature/something // 用非fast-forward进行合并，这样git网络比较清晰
+```
+
+如果遇到了冲突。（通常命令行和vscode都会有提示）
+
+解决冲突后
+```bash
+git add .
+git merge --continue
+```
+合并主干完成
+
+对于提merge request的
+
+在feature/something上开发
+```bash
+git pull origin master
+```
+
+若冲突，解决后
+```bash
+git add .
+git merge --continue
+git push origin feature/something
+```
+
+提merge request
+
+实际情况master也有可能是dev，看团队习惯
 
 ### Question4
-feature分支上开发到一半。遇到现网问题紧急处理
+feature分支上开发到一半。遇到其它问题从master分支上切新分支处理
 
 ### Question5
 写了一会代码，发现自己是在本地master上直接写并且已经commit了几次了
 
 ### Question6
-master本地刚合了feature分支代码，分支上的多次commit时间很久了，插在master上很多了。然后合了的master不能发，又要去修现网问题。需要还原merge前的master
 
+错误的merge后需要修复，这里分两种情况：
+
+1、master本地刚合了feature分支代码，但是没有推上远程。分支上的多次commit时间很久了，插在master上很多了。然后需要撤销合并。需要还原merge前的master
+
+2、master合并分支的代码已经推到了远程，需要撤销这次的提交
 ### Question7
 代码误上master
 
