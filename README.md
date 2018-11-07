@@ -149,7 +149,15 @@ git reset --hard 1f8c9aceb78677c2dc8169f463382fc64ec8a514
 ```bash
 git revert -m 1 a0674976b94d17465eb63e799a334dd12a5ab553
 ```
-这里是放弃到合并的这次提交。注意revert是会生成一次新的commit记录。
+这里是放弃到合并的这次提交。注意revert是会生成一次新的commit记录，而不是把历史中的问题commit从log中清除
+
+如果冲突，解决后
+```bash
+git add .
+git revert --continue
+```
+重新推上远程，这样不会影响别人的提交，只是把自己的问题commit去除掉
+
 
 ### Question7
 代码误上master
