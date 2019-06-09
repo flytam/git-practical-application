@@ -169,5 +169,7 @@ git revert --continue
 ### Question9
 提交了敏感文件
 
+### revert实用姿势
+[链接](https://ulivz.com/2018/04/12/when-you-decide-to-revert-a-merge-commit/)
 未完继续....
 
