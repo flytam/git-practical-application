@@ -88,7 +88,7 @@ s 1ae6ab8 step 3
 
 ```bash
 git checkout master
-git pull orgin master
+git pull --rebase orgin master
 git merge --no-ff feature/something // 用非fast-forward进行合并，这样git网络比较清晰
 ```
 
@@ -98,7 +98,7 @@ git merge --no-ff feature/something // 用非fast-forward进行合并，这样gi
 
 ```bash
 git add .
-git merge --continue
+git rebase --continue
 ```
 
 合并主干完成
@@ -108,15 +108,15 @@ git merge --continue
 在 feature/something 上开发
 
 ```bash
-git pull origin master
+git pull --rebase origin master
 ```
 
 若冲突，解决后
 
 ```bash
 git add .
-git merge --continue
-git push origin feature/something
+git rebase --continue
+git push -f origin feature/something # 由于进行了rebase，必须使用-f覆盖远程，只适用于当前分支是自己一个人开发的情况
 ```
 
 提 merge request
@@ -126,6 +126,8 @@ git push origin feature/something
 ### Question4
 
 feature 分支上开发到一半。遇到其它问题从 master 分支上切新分支处理
+
+可以`git stash push`暂存 然后 `git stash pop`。但是个人更喜欢`commit`一个`tmp`。最后合并的时候把commit信息重写
 
 ### Question5
 
